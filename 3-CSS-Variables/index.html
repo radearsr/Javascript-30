@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Var with JS</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      :root {
+        --blur: blur(4px);
+        --base-color: rgb(255, 255, 0);
+        --spacing: 50px;
+      }
+      body {
+        background-color: rgb(61, 61, 117);
+        font-family: sans-serif;
+      }
+      .container {
+        padding: 1rem;
+        margin: 1rem auto;
+      }
+      .title {
+        font-size: 3rem;
+        color: white;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      .title span {
+        color: var(--base-color);
+      }
+      .option {
+        margin: 0 auto;
+        text-align: center;
+        padding: 2rem 0;
+      }
+      .option label {
+        color: white;
+        font-weight: 700;
+        font-size: 1.8rem;
+      }
+
+      .option input[type="color"] {
+        width: 5rem;
+        height: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .img-wrapper {
+        width: 50%;
+        padding: var(--spacing);
+        background-color: var(--base-color);
+        filter: var(--blur);
+        margin: 0 auto;
+        transition: all 0.3s;
+      }
+
+      @media (max-width: 900px) {
+        .img-wrapper {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">update css variables with <span>js</span></h1>
+      <div class="option">
+        <label for="spacingRange">Spacing</label>
+        <input
+          type="range"
+          class="spacing"
+          min="0"
+          max="250"
+          step="2.5"
+          value="50"
+        />
+
+        <label for="blurRange">Blur</label>
+        <input type="range" min="0" max="10" step="1" value="4" class="blur" />
+
+        <label for="baseRange">Base Color</label>
+        <input type="color" class="base-color" value="#FFFF00" />
+      </div>
+      <div class="img-wrapper">
+        <img src="example-img.jpg" alt="" srcset="" width="100%" />
+      </div>
+    </div>
+
+    <script>
+      const root = document.querySelector(":root");
+      const handlers = document.querySelectorAll(".option input");
+
+      const updateCssVar = (event) => {
+        const varName = event.target.getAttribute("class");
+        const value = event.target.value;
+
+        console.log(value);
+        if (varName === "base-color") {
+          root.style.setProperty(`--${varName}`, `${value}`);
+        } else if (varName === "blur") {
+          root.style.setProperty(`--${varName}`, `blur(${value}px)`);
+        } else {
+          root.style.setProperty(`--${varName}`, `${value}px`);
+        }
+      };
+
+      handlers.forEach((handler) => {
+        handler.addEventListener("input", updateCssVar);
+      });
+    </script>
+  </body>
+</html>

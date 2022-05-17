@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Type Ahead</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+      body {
+        background-color: rgb(255, 217, 0);
+      }
+      h1 {
+        color: brown;
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 2.5rem;
+        padding: 2rem 0;
+      }
+      .search-form {
+        text-align: center;
+      }
+      .search-form input[type="text"] {
+        display: block;
+        width: 32rem;
+        margin: 0 auto;
+        font-size: 2rem;
+        padding: 1.5rem 0.5rem;
+        text-align: center;
+        outline: none;
+        border: 0.8rem solid rgb(216, 216, 216);
+        color: rgb(78, 78, 78);
+        border-radius: 0.4rem;
+      }
+      .result-search li {
+        list-style: none;
+        width: 30rem;
+        text-transform: capitalize;
+        margin: 0 auto;
+        text-align: center;
+        padding: 1rem;
+        font-size: 1.5rem;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 1) 17%,
+          rgb(235, 232, 232) 100%
+        );
+        color: rgb(51, 51, 51);
+      }
+      .result-search li:nth-child(odd) {
+        transform: perspective(100px) rotateX(-3deg);
+      }
+      .result-search li:nth-child(even) {
+        transform: perspective(100px) rotateX(3deg);
+      }
+      .hlight {
+        background-color: rgb(255, 217, 0);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>search province in indonesia</h1>
+    <form class="search-form">
+      <input type="text" class="search-input" placeholder="Province" />
+      <ul class="result-search">
+        <li>filter for a province</li>
+        <li>-- good luck --</li>
+      </ul>
+    </form>
+
+    <script>
+      const resultDisplayEl = document.querySelector(".result-search");
+      const formInput = document.querySelector(".search-input");
+
+      let provinces = [
+        { id: 11, nama: "Aceh" },
+        { id: 12, nama: "North Sumatra" },
+        { id: 13, nama: "West Sumatra" },
+        { id: 14, nama: "Riau" },
+        { id: 15, nama: "Jambi" },
+        { id: 16, nama: "South Sumatra" },
+        { id: 17, nama: "Bengkulu" },
+        { id: 18, nama: "Lampung" },
+        { id: 19, nama: "Bangka Belitung Islands" },
+        { id: 21, nama: "Riau Islands" },
+        { id: 31, nama: "DKI Jakarta" },
+        { id: 32, nama: "West Java " },
+        { id: 33, nama: "Central Java " },
+        { id: 34, nama: "Yogyakarta" },
+        { id: 35, nama: "East Java" },
+        { id: 36, nama: "Banten" },
+        { id: 51, nama: "Bali" },
+        { id: 52, nama: "West Nusa Tenggara " },
+        { id: 53, nama: "East Nusa Tenggara " },
+        { id: 61, nama: "West Kalimantan " },
+        { id: 62, nama: "Central Kalimantan " },
+        { id: 63, nama: "South Kalimantan " },
+        { id: 64, nama: "East Kalimantan " },
+        { id: 65, nama: "North Kalimantan " },
+        { id: 71, nama: "North Sulawesi " },
+        { id: 72, nama: "Central Sulawesi " },
+        { id: 73, nama: "South Sulawesi " },
+        { id: 74, nama: "Southeast Sulawesi " },
+        { id: 75, nama: "Gorontalo" },
+        { id: 76, nama: "West Sulawesi" },
+        { id: 81, nama: "Maluku" },
+        { id: 82, nama: "North Maluku" },
+        { id: 91, nama: "West Papua" },
+        { id: 94, nama: "Papua" },
+      ];
+
+      const endPoint = "http://dev.farizdotid.com/api/daerahindonesia/provinsi";
+
+      // fetch(endPoint)
+      //   .then((response) => response.json())
+      //   .then((datas) => provinces.push(...datas.provinsi));
+
+      const searchData = (keyword, arrays) => {
+        return arrays.filter((array) => {
+          const regex = new RegExp(keyword, "gi");
+
+          return array.nama.match(regex);
+        });
+      };
+
+      const displayDataMacthes = (event) => {
+        const results = searchData(event.target.value, provinces);
+
+        console.log(results);
+
+        const newListItems = results
+          .map((result) => {
+            const regex = new RegExp(event.target.value, "gi");
+
+            const provinceName = result.nama.replace(
+              regex,
+              `<span class="hlight">${event.target.value}</span>`
+            );
+
+            return `
+                <li>${provinceName}</li>
+                `;
+          })
+          .join("");
+        resultDisplayEl.innerHTML = "";
+        resultDisplayEl.innerHTML = newListItems;
+      };
+
+      formInput.addEventListener("keyup", displayDataMacthes);
+    </script>
+  </body>
+</html>

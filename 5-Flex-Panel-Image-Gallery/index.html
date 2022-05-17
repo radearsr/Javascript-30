@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Shadows Into Light", cursive;
+      }
+      .container {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .panels {
+        height: 100vh;
+        display: flex;
+      }
+
+      .panel {
+        flex-grow: 1;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5rem 0;
+        cursor: pointer;
+        box-shadow: 0px 0px 1px 5px rgba(255, 255, 255, 0.2) inset;
+        transition: 0.5s cubic-bezier(0.29, 1.01, 1, -0.68);
+      }
+
+      .panel.panel1 {
+        background-image: url("panel1.jpg");
+      }
+      .panel.panel2 {
+        background-image: url("panel2.jpg");
+      }
+      .panel.panel3 {
+        background-image: url("panel3.jpg");
+      }
+      .panel.panel4 {
+        background-image: url("panel4.jpg");
+      }
+      .panel.panel5 {
+        background-image: url("panel5.jpg");
+      }
+
+      .panel p {
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        font-size: 3rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-shadow: 0 0 5px black;
+        transition: transform 0.5s ease-in;
+      }
+
+      .panel p:first-child,
+      .panel p:last-child {
+        font-size: 2rem;
+        font-weight: normal;
+        opacity: 0;
+      }
+
+      .panel p:first-child {
+        transform: translateY(-250%);
+      }
+
+      .panel p:last-child {
+        transform: translateY(250%);
+      }
+
+      .panel.open-active p:first-child {
+        transform: translateY(0);
+      }
+      .panel.open-active p:last-child {
+        transform: translateY(0);
+      }
+
+      .panel.open-active p:first-child,
+      .panel.open-active p:last-child {
+        opacity: 1;
+      }
+
+      .panel.open p {
+        font-size: 5rem;
+        font-weight: bold;
+      }
+
+      .panel.open-active p:first-child,
+      .panel.open-active p:last-child {
+        font-size: 3rem;
+        font-weight: normal;
+        visibility: visible;
+      }
+
+      .panel.open {
+        flex-grow: 3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="panels">
+        <div class="panel panel1">
+          <p>hey</p>
+          <p>let's</p>
+          <p>dance</p>
+        </div>
+        <div class="panel panel2">
+          <p>give</p>
+          <p>take</p>
+          <p>receive</p>
+        </div>
+        <div class="panel panel3">
+          <p>experince</p>
+          <p>it</p>
+          <p>today</p>
+        </div>
+        <div class="panel panel4">
+          <p>five</p>
+          <p>all</p>
+          <p>you can</p>
+        </div>
+        <div class="panel panel5">
+          <p>life</p>
+          <p>in</p>
+          <p>motion</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const panels = document.querySelectorAll(".panel");
+
+      panels.forEach((panel) =>
+        panel.addEventListener("click", () => panel.classList.toggle("open"))
+      );
+
+      panels.forEach((panel) =>
+        panel.addEventListener("transitionend", () =>
+          panel.classList.toggle("open-active")
+        )
+      );
+    </script>
+  </body>
+</html>

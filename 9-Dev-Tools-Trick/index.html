@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Console Tricks!</title>
+  </head>
+  <body>
+    <p onClick="makeGreen()"></p>
+
+    <script>
+      const dogs = [
+        { name: "Snickers", age: 2 },
+        { name: "hugo", age: 8 },
+      ];
+
+      function makeGreen() {
+        const p = document.querySelector("p");
+        p.style.color = "#BADA55";
+        p.style.fontSize = "50px";
+      }
+
+      // clearing
+      console.clear();
+
+      // Regular
+      console.log("~ Regular ~");
+      console.log("Hello World!!");
+
+      // Interpolated
+      console.log("~ Interpolated ~");
+      console.log(`Fifteen is => ${5 + 10}`);
+
+      // Styled
+      // console.log()
+
+      // warning!
+      console.log("~ warning! ~");
+      console.warn("This is warning!");
+
+      // Error :|
+      console.log("~ Error ~");
+      console.error("This is Error!?!");
+
+      // Info
+      console.log("~ Info ~");
+      console.info("This is Info");
+
+      // Testing
+      console.log("~ Testing ~");
+      const p = document.querySelector("p");
+      console.assert(p.textContent != "", { errorMsg: "Content is undefined" });
+
+      // Viewing DOM Elements
+      console.log("~ Viewing DOM Elements ~");
+      console.log(p);
+      console.dir(p);
+
+      // Grouping together
+      console.log("~ Grouping Together ~");
+      dogs.forEach((dog) => {
+        console.groupCollapsed(dog.name);
+        console.log(`Dog Name ${dog.name}`);
+        console.log(`Dog Age is ${dog.age}`);
+        console.groupEnd();
+      });
+
+      // counting
+      console.log("~ Counting ~");
+      console.count("radea");
+      console.count("radea");
+      console.count("radea");
+      console.count("surya");
+      console.count("surya");
+      console.count("ramandhita");
+
+      // timing
+      console.log("~ Time ~");
+      console.time("Fetch Data From Server");
+      fetch("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
+        .then((response) => response.json())
+        .then((data) => console.timeEnd("Fetch Data From Server"));
+    </script>
+  </body>
+</html>

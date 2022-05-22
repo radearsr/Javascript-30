@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkbox Challenge</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+      body {
+        background-color: rgb(255, 230, 0);
+      }
+      h1 {
+        text-align: center;
+        letter-spacing: 2px;
+        margin: 2rem 0;
+        color: brown;
+        font-size: 3rem;
+      }
+      .wrapper {
+        width: 550px;
+        margin: 0 auto;
+        background-color: rgb(255, 255, 255);
+        border-radius: 0.8rem;
+        box-shadow: 10px 10px 2px 0px rgba(0, 0, 0, 0.3);
+      }
+      .wrapper .item {
+        display: flex;
+        border-bottom: 1px solid rgb(194, 194, 194);
+      }
+      .wrapper .item > input[type="checkbox"] {
+        margin: 1.6rem;
+      }
+      .wrapper .item p {
+        padding: 1.6rem 0;
+        font-size: 1.3rem;
+        border-left: 1px solid rgb(104, 104, 247);
+        padding-left: 1rem;
+      }
+      .wrapper .item:first-child p {
+        border-radius: 0 0.8rem 0 0;
+      }
+
+      .wrapper .item:last-child p {
+        border-radius: 0 0 0.8rem 0;
+      }
+
+      .wrapper .item:last-child {
+        border-bottom: none;
+      }
+      input[type="checkbox"]:checked + p {
+        width: 100%;
+        text-decoration: line-through;
+        background-color: rgb(245, 243, 243);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Checkbox Challenge</h1>
+    <div class="wrapper">
+      <div class="item">
+        <input type="checkbox" />
+        <p>This is an inbox layout.</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Check one item</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Hold down your Shift key</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Check a lower item</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Everything in between should also be set to checked</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" name="" id="" />
+        <p>Check first data</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" name="" id="" />
+        <p>Check first second</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" name="" id="" />
+        <p>Check first third</p>
+      </div>
+    </div>
+    <script>
+      const checkboxs = document.querySelectorAll("input[type='checkbox']");
+      let lastChecked;
+      let handle = false;
+
+      const handleCheck = (evt) => {
+        if (evt.shiftKey && evt.target.checked) {
+          checkboxs.forEach((checkbox) => {
+            console.log(lastChecked);
+            if (checkbox == evt.target || checkbox == lastChecked) {
+              handle = !handle;
+            }
+            if (handle) {
+              checkbox.checked = true;
+            }
+          });
+        }
+        lastChecked = evt.target;
+        console.log(lastChecked);
+      };
+
+      checkboxs.forEach((checkbox) => {
+        checkbox.addEventListener("click", handleCheck);
+      });
+    </script>
+  </body>
+</html>
